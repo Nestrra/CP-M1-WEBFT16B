@@ -255,18 +255,18 @@ var cardGame = function (playerOneCards, playerTwoCards) {
 
   
 
-    var cartaPlayer1ataque = playerOneCards.dequeue() 
-    var cartaPlayer1defensa = playerOneCards.dequeue() 
+    var cartaAtaqJug1 = playerOneCards.dequeue() 
+    var cartaDefJug1 = playerOneCards.dequeue() 
 
-    var cartaPlayer2ataque = playerTwoCards.dequeue() 
-    var cartaPlayer2defensa = playerTwoCards.dequeue() 
+    var cartaAtaqJug2 = playerTwoCards.dequeue() 
+    var cartaDefJug2 = playerTwoCards.dequeue() 
 
-    var ataquePlayerOne = cartaPlayer2defensa.defense - cartaPlayer1ataque.attack
+    var ataquePlayerOne = cartaDefJug2.defense - cartaAtaqJug1.attack
     if (ataquePlayerOne < 0) {
       castilloJug2 += ataquePlayerOne
     }
 
-    var ataquePlayerTwo = cartaPlayer1defensa.defense - cartaPlayer2ataque.attack
+    var ataquePlayerTwo = cartaDefJug1.defense - cartaAtaqJug2.attack
     if (ataquePlayerTwo < 0) {
       castilloJug1 += ataquePlayerTwo
     }
