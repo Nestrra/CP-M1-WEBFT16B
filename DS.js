@@ -81,7 +81,7 @@ function Node(valor){
 
 function BinarySearchTree(valor) {
   this.value = valor;
-  this.left = null;
+  this.left = null; 
   this.right = null;
 }
 

@@ -25,6 +25,7 @@ const {
 //   "Mona Simpson": [],
 //   "Marge Simpson": ["Lisa Simpson", "Maggie Simpson"],
 //   "Jacqueline Bouvier": [ "Patty Bouvier", "Marge Simpson", "Selma Bouvier"],
+
 //   "Patty Bouvier": [],
 //   "Selma Bouvier": ["Ling Bouvier"],
 //   "Edwina": ["Abigail Simpson"],
@@ -37,9 +38,22 @@ const {
 //  - Caso que devuelve false --> isAncestor(genealogyTree, "Jacqueline Bouvier", "Abigail Simpson")
 //  [Observar los tests para otros casos]
 
-var isAncestor = function(genealogyTree, ancestor, descendant){
+var isAncestor = function (genealogyTree, ancestor, descendant) {
   // Tu código aca:
 
+  if (genealogyTree[ancestor].length <= 0) {
+    return false
+  }
+  for (let i = 0; i < genealogyTree[ancestor].length; i++) {
+    let aux = genealogyTree[ancestor][i];
+    if (aux === descendant) {
+      return true;
+    }
+    if (genealogyTree[aux].length > 0) {
+      return isAncestor(genealogyTree, aux, descendant);
+    }
+  }
+  return false
 }
 
 
@@ -78,6 +92,11 @@ var isAncestor = function(genealogyTree, ancestor, descendant){
 function secuenciaHenry(obj, n) {
   // Tu código aca:
 
+  if (n < 0) return null;
+  if (n === 0) return obj.first;
+  if (n === 1) return Object.keys(obj).length;
+  return (secuenciaHenry(obj, n - 1) * secuenciaHenry(obj, n - 2) - secuenciaHenry(obj, n - 2));
+
 }
 
 // ---------------------
@@ -96,8 +115,21 @@ function secuenciaHenry(obj, n) {
 //    lista.add(3);
 //    lista.size(); --> 3
 
-LinkedList.prototype.size = function(){
+LinkedList.prototype.size = function () {
   // Tu código aca:
+
+  let current = this.head;
+  let sum = 0;
+  if (!current) {
+    return 0;
+  }
+
+  while (current) {
+    current = current.next;
+    sum++;
+  }
+
+  return sum;
 
 }
 
@@ -111,14 +143,33 @@ LinkedList.prototype.size = function(){
 // Aclaración: la posición cero corresponde al head de la LinkedList
 // Ejemplo 1:
 //    Suponiendo que la lista actual es: Head --> [1] --> [2] --> [3] --> [4] --> [5]
-//    lista.switchPos(1,3);
+//    lista.switchPos(1,3);                                             actual      
 //    Ahora la lista quedaría: Head --> [1] --> [4] --> [3] --> [2] --> [5]
 //    y la función debería haber devuelto true
 // Ejemplo 2:
 //    Suponiendo que se pide una posición inválida: removeFromPos(8) --> false
 
-LinkedList.prototype.switchPos = function(pos1, pos2){
+LinkedList.prototype.switchPos = function (pos1, pos2) {
   // Tu código aca:
+
+  let current = this.head;
+  if (pos1 < 0 || pos2 < 0 || psl > this.size() || pos2 > this.size()) {
+    return false;
+  }
+
+  while (current) {
+    current = current.next;
+    if (current.next === pos1) {
+      let aux = pos1;
+    }
+    if (current.nex === ps2) {
+
+
+
+    }
+  }
+
+
 
 }
 
@@ -133,8 +184,22 @@ LinkedList.prototype.switchPos = function(pos1, pos2){
 // Nota: las listas enlazadas mergeadas intercalandose.
 // El nodo 1 de la lista 1, se conecta con el nodo 1 de la lista 2.
 // Continuando con el nodo 2 de la lista 2, conectandose con el nodo 2 de la lista 2.
-var mergeLinkedLists = function(linkedListOne, linkedListTwo){
+var mergeLinkedLists = function (linkedListOne, linkedListTwo) {
   // Tu código aca:
+
+  var list = new LinkedList();
+  var currentListOne = linkedListOne.head
+  var currentListTwo = linkedListTwo.head
+
+  while (currentListOne != null && currentListTwo != null) {
+    list.add(currentListOne.value)
+    list.add(currentListTwo.value)
+
+    currentListOne = currentListOne.next;
+    currentListTwo = currentListTwo.next;
+  }
+  return list
+
 
 }
 
@@ -181,9 +246,18 @@ var mergeLinkedLists = function(linkedListOne, linkedListTwo){
 // finalizar el juego.
 
 
-var cardGame = function(playerOneCards, playerTwoCards){
+var cardGame = function (playerOneCards, playerTwoCards) {
   // Tu código aca:
 
+  let castilloJug1 = 100;
+  let castilloJug2 = 100;
+  let cartaAtaqueJug1 = playerOneCards.length -1;
+  let cartaAtaqueJug2 = playerOneCards.length -1;
+  let cartaDefensaJug1 = playerOneCards.length -2;
+  let cartaDefensaJug2 = playerOneCards.length -2;
+
+
+  return ganador;
 }
 
 // ---------------
@@ -205,8 +279,32 @@ var cardGame = function(playerOneCards, playerTwoCards){
 // Este arbol tiene una altura de 4
 // PISTA: Una forma de resolverlo es pensarlo recursivamente y usando Math.max
 
-BinarySearchTree.prototype.height = function(){
+BinarySearchTree.prototype.height = function () {
   // Tu código aca:
+
+
+  if (this.value === null) {
+
+    return 0;
+
+  }
+
+  if (this.left === null && this.right === null) {
+    return 1;
+  }
+
+  if (this.left === null) {
+    return 1 + this.right.height();
+  }
+  if (this.right === null) {
+    return 1 + this.left.height();
+  }
+
+  let left = this.left.height();
+  let right = this.right.height();
+
+  return 1 + Math.max(left, right)
+
 
 }
 
@@ -223,12 +321,35 @@ BinarySearchTree.prototype.height = function(){
 //    - https://en.wikipedia.org/wiki/Binary_search_algorithm
 // Ejemplo:
 //    array = [1,2,3,4,5,6,7,8,9,10];
+
 //    binarySearch(array, 2) --> Devolvería 1 ya que array[1] = 2
 //    [Donde 2 sería el número sobre el cuál queremos saber su posición en el array]
 
 
 var binarySearch = function (array, target) {
   // Tu código aca:
+
+  let primerE = 0;
+  let ultimoE = array.length-1;
+
+
+  while (primerE <= ultimoE) {
+
+      let mitad = primerE + Math.floor((ultimoE - primerE) / 2);
+      if(target === array[mitad] ){
+          return mitad;
+      }
+      if(target < array[mitad]){
+        ultimoE = mitad - 1;
+      }else{
+        primerE = mitad +1;
+      }
+
+    } 
+
+  return -1;
+  
+
 
 }
 
@@ -255,8 +376,24 @@ var binarySearch = function (array, target) {
 //   {name: 'Leo', age: 40, height: 1.83}
 // ]
 
-var specialSort = function(array, orderFunction) {
+var specialSort = function (array, orderFunction) {
   // Tu código aca:
+
+  let change = true;
+
+  while (change) {
+    change = false;
+    for (let i = 0; i < array.length - 1; i++) {
+      if (orderFunction(array[i], array[i + 1]) === -1) {
+        let res = array[i];
+        array[i] = array[i + 1];
+        array[i + 1] = res;
+        change = true;
+      }
+    }
+  }
+  return array;
+
 
 }
 
@@ -291,7 +428,29 @@ var specialSort = function(array, orderFunction) {
 function closureDetect(symptoms, min) {
   // Tu código aca:
 
+  return function (object) {
+
+    let numbSym = 0;
+
+    for (let i = 0; i < symptoms.length; i++) {
+
+      if (symptoms.includes(object.symptoms[i])) {
+
+        numbSym++;
+      }
+    }
+    if (numbSym >= min) {
+      return true;
+    } else {
+
+      return false;
+    }
+
+  }
+
+
 }
+
 
 // -------------------
 
