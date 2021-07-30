@@ -249,15 +249,43 @@ var mergeLinkedLists = function (linkedListOne, linkedListTwo) {
 var cardGame = function (playerOneCards, playerTwoCards) {
   // Tu código aca:
 
-  let castilloJug1 = 100;
-  let castilloJug2 = 100;
-  let cartaAtaqueJug1 = playerOneCards.length -1;
-  let cartaAtaqueJug2 = playerOneCards.length -1;
-  let cartaDefensaJug1 = playerOneCards.length -2;
-  let cartaDefensaJug2 = playerOneCards.length -2;
+  var castilloJug1 = 100;
+  var castilloJug2 = 100;
+ 
 
+  
 
-  return ganador;
+    var cartaPlayer1ataque = playerOneCards.dequeue() 
+    var cartaPlayer1defensa = playerOneCards.dequeue() 
+
+    var cartaPlayer2ataque = playerTwoCards.dequeue() 
+    var cartaPlayer2defensa = playerTwoCards.dequeue() 
+
+    var ataquePlayerOne = cartaPlayer2defensa.defense - cartaPlayer1ataque.attack
+    if (ataquePlayerOne < 0) {
+      castilloJug2 += ataquePlayerOne
+    }
+
+    var ataquePlayerTwo = cartaPlayer1defensa.defense - cartaPlayer2ataque.attack
+    if (ataquePlayerTwo < 0) {
+      castilloJug1 += ataquePlayerTwo
+    }
+   
+   while (playerOneCards.size() > 0)
+
+  if (castilloJug1 > castilloJug2 ) {
+
+    return   "PLAYER ONE"
+    
+  } else if ( castilloJug1 < castilloJug2) {
+     
+      return "PLAYER TWO"
+
+  } else {
+   
+      return "TIE"
+
+  }
 }
 
 // ---------------
@@ -330,25 +358,25 @@ var binarySearch = function (array, target) {
   // Tu código aca:
 
   let primerE = 0;
-  let ultimoE = array.length-1;
+  let ultimoE = array.length - 1;
 
 
   while (primerE <= ultimoE) {
 
-      let mitad = primerE + Math.floor((ultimoE - primerE) / 2);
-      if(target === array[mitad] ){
-          return mitad;
-      }
-      if(target < array[mitad]){
-        ultimoE = mitad - 1;
-      }else{
-        primerE = mitad +1;
-      }
+    let mitad = primerE + Math.floor((ultimoE - primerE) / 2);
+    if (target === array[mitad]) {
+      return mitad;
+    }
+    if (target < array[mitad]) {
+      ultimoE = mitad - 1;
+    } else {
+      primerE = mitad + 1;
+    }
 
-    } 
+  }
 
   return -1;
-  
+
 
 
 }
